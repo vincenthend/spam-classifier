@@ -1,0 +1,1 @@
+{'body': "\n>\n> 6.  Hardware is getting so fast that I'm not sure if the performance\n> difference between Java and C/C++ are relevant any more.\n\nWhen out-of-the-box parsing & transform of XML in java is 25x slower than\nC++ on the same hardware then it does matter.\n\n", 'subject': 'Re: Java is for kiddies'}
