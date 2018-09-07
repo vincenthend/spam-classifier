@@ -20,9 +20,24 @@ class Preprocessor:
         pass
 
 class Trainer:
-    def Train(self, MailDataList):
+    def Train(self, mailDataList):
         # Implement training, use tenfold to get training accuracy
-        pass
+        preprocessor = Preprocessor()
+        
+        payloads = []
+        label = []
+        for mailData in mailDataList:
+            payloads.append(mailData.payload)
+            label.append(mailData.label)
+        
+        features = preprocessor.preprocessData(payloads)
+        model = self.__trainKnn(features, label)
+            
+    def __trainKnn(self, features, label):
+        classifier = sklearn.neighbors.KNeighborsClassifier()
+        classifier.fit(features, label)
+
+        return classifier
 
     def Save(self, fileName):
         # Save trained data, retrain to make sure data has been trained
