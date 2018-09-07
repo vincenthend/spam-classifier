@@ -5,6 +5,7 @@ class Preprocessor:
     # List of stopwords
     __stopwords = []
 
+    # return sklearn.feature_extraction.text.CountVectorizer
     # Preprocess data
     def preprocessData(self, data):
         vector = CountVectorizer()
