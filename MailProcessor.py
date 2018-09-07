@@ -8,16 +8,11 @@ class Preprocessor:
     # return sklearn.feature_extraction.text.CountVectorizer
     # Preprocess data
     def preprocessData(self, data):
-        self.__tokenize(data)
-        self.__removeStopwords(data)
-
-    def __tokenize(self, data):
-        # Implement tokenizer
-        pass # Please remove these
-
-    def __removeStopwords(self, text):
-        # Implement remove stopwords
-        pass
+        vector = CountVectorizer(stop_words = 'English')
+        train_count = vector.fit_transform(loadTraining())
+        transformer = TfidfTransformer()
+        train_tf = transformer.fit_transform(train_count)
+        return train_tf
 
 class Trainer:
     def Train(self, mailDataList):
