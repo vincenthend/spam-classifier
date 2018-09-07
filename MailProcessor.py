@@ -8,7 +8,7 @@ class Preprocessor:
     # return sklearn.feature_extraction.text.CountVectorizer
     # Preprocess data
     def preprocessData(self, data):
-        vector = CountVectorizer()
+        vector = CountVectorizer(stop_words = 'English')
         train_count = vector.fit_transform(loadTraining())
         transformer = TfidfTransformer()
         train_tf = transformer.fit_transform(train_count)
