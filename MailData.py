@@ -3,9 +3,8 @@ import ast
 
 # Class MailData, contains method for creating email
 class MailData:
-    def __init__(self, subject, body, label=0):
-        self.subject = subject
-        self.body = body
+    def __init__(self, subject, body, label=None):
+        self.payload = subject + " " + body
         self.label = label
 
 # Class MailLoader, loads text file and turn it into MailData object
