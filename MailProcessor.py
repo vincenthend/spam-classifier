@@ -1,13 +1,13 @@
 import sklearn.feature_extraction.text
 from nltk.tokenize import *
-from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 
 class Preprocessor:
     # Constants
-    minimalFreq = 0.01
+    minimalFreq = 1
 
     def preprocessData(self, data):
         messages = [self.__processText(d) for d in data]
@@ -21,20 +21,25 @@ class Preprocessor:
 
         
 
-    def __processText(self, text):
-        # Lowercase, tokenize
+    def __processText(self, text, use_tokenize=True, use_stopwords=True, use_stemmer=True):
+        # Lowercase
         text = text.lower()
-        token = word_tokenize(text)
-        token = [t for t in token if len(t) >= 3]
+
+        # Tokenize
+        if(use_tokenize):
+            token = word_tokenize(text)
+            token = [t for t in token if len(t) >= 3]
 
         # Remove Stopwords
-        stops = stopwords.words('english')
-        token = [t for t in token if t not in stops]
+        if(use_stopwords):
+            stops = stopwords.words('english')
+            token = [t for t in token if t not in stops]
         
         # Stemmer
-        stemmer = PorterStemmer()
-        token = [stemmer.stem(t) for t in token]
+        if(use_stemmer):
+            lemma = WordNetLemmatizer()
+            token = [lemma.lemmatize(t) for t in token]
         
-        token = ' '.join(token)
-        return token
-
+        if(use_tokenize):
+            text = ' '.join(token)
+        return text
