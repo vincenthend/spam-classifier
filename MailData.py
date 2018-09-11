@@ -39,10 +39,3 @@ class MailDataLoader:
 
     def loadTesting(self):
         return self.__loadFolder(self.__trainingPath)
-
-
-if __name__ == "__main__":
-    builder = MailDataLoader()
-
-    trainingData = builder.loadTraining()
-    print(trainingData[3].label)
