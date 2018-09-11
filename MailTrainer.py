@@ -21,7 +21,9 @@ class Trainer:
         payloads = []
         label = []
         for mailData in mailDataList:
-            payloads.append(HTMLStripper.stripTags(mailData.payload))
+            text = HTMLStripper.stripTags(mailData.payload)
+            text = HTMLStripper.cleanText(text)
+            payloads.append(text)
             label.append(mailData.label)
 
         self.vector, dataset = preprocessor.preprocessData(payloads)

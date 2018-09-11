@@ -12,7 +12,7 @@ class Preprocessor:
     def preprocessData(self, data):
         messages = [self.__processText(d) for d in data]
         
-        vector = CountVectorizer(stop_words = None, min_df=self.minimalFreq)
+        vector = CountVectorizer(stop_words = 'english', min_df=self.minimalFreq)
         train_count = vector.fit_transform(messages)
         transformer = sklearn.feature_extraction.text.TfidfTransformer()
         train_tf = transformer.fit_transform(train_count)
