@@ -6,9 +6,9 @@ class classifier:
     def __init__(self,model):
         # Load trained model
         self.model = model
-        
+
         # Load Testing mailData
-        self.__mailDataTesting = MailDataLoader.loadTesting()
+        self.__mailDataTesting = MailDataLoader().loadTesting()
 
     def classify(self, mailDataTesting):
         # Preprocess mailDataTesting
@@ -16,7 +16,7 @@ class classifier:
 
         payload = []
 
-        for mailData in __mailDataTesting:
+        for mailData in self.__mailDataTesting:
             text = HTMLStripper.stripTags(mailData.payload)
             text = HTMLStripper.cleanText(text)
             payload.append(text)
@@ -24,7 +24,7 @@ class classifier:
         vector, dataset = preprocessor.preprocessData(payload)
         
         # predict mailDataTesting
-        predicted = model.predict(dataset)
+        predicted = self.model.predict(dataset)
 
         # Get accuracy score
-        print('Accuracy = %5.3f' % float(model.score(dataset,predicted)*100))
+        print('Accuracy = %5.3f' % float(self.model.score(dataset,predicted)*100))
