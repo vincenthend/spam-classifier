@@ -3,24 +3,28 @@ import MailProcessor
 import HTMLStripper
 
 class classifier:
-    def __init__(self):
+    def __init__(self,model):
         # Load trained model
-
+        self.model = model
+        
         # Load Testing mailData
-        self.mailDataTesting = <ailDataLoader.loadTesting()
-    
-    def classify(self, model, mailDataTesting):
+        self.__mailDataTesting = MailDataLoader.loadTesting()
+
+    def classify(self, mailDataTesting):
         # Preprocess mailDataTesting
-        preprocessor = MailProcessor.Preprocessor();
+        preprocessor = MailProcessor.Preprocessor()
 
         payload = []
 
-        for mailData in mailDataTesting:
+        for mailData in __mailDataTesting:
             text = HTMLStripper.stripTags(mailData.payload)
             text = HTMLStripper.cleanText(text)
             payload.append(text)
 
+        vector, dataset = preprocessor.preprocessData(payload)
         
-        pass 
+        # predict mailDataTesting
+        predicted = model.predict(dataset)
 
-    
+        # Get accuracy score
+        print('Accuracy = %5.3f' % float(model.score(dataset,predicted)*100))
